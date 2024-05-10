@@ -1,4 +1,5 @@
 const HighlighterData = require('../models/highlighterModel');
+const {MongoClient} = require('mongodb');
 
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 exports.createHighlighter = catchAsyncErrors(async (req, res, next) => {
@@ -57,6 +58,37 @@ exports.deleteArticleHighlighter = catchAsyncErrors(async (req, res, next) => {
         if (getArticleHighlighterData) {
             res.status(200).json({
                 success: true,
+            });
+        }
+        else {
+            res.status(400).json({
+                success: false,
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+});
+
+exports.getArticleData = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const client = await MongoClient.connect("mongodb+srv://bhuvneshupworkdev:RtIiLCrguFnfnNbE@cluster0.nbubx7u.mongodb.net/?retryWrites=true&w=majority", {});
+        // const collection = mongoose.collection('articleData');
+        const db = client.db('test');
+        const collection = db.collection('articleData');
+        // console.log(collection,"collection")
+    
+        // Find all documents (replace with your query if needed)
+        const data = await collection.findOne({_id:'65fe3ef1943c0ae041bdd852'});
+        // console.log(data,"data");
+        if (data) {
+            res.status(200).json({
+                success: true,
+                data: data,
             });
         }
         else {

@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const highlighter = require('./routes/highlighterRoutes');
-app.use("/api/v1", highlighter);
+app.use("/", highlighter);
 
 
 module.exports = app;
