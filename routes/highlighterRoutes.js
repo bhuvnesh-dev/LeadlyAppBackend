@@ -3,6 +3,6 @@ const { createHighlighter, getArticleHighlighter, deleteArticleHighlighter, getA
 
 const router = express.Router();
 router.route("/highlighter").post(createHighlighter).get(getArticleHighlighter).delete(deleteArticleHighlighter);
-router.route("").get(getArticleData);
+router.route("/articleData").get(getArticleData);
 
 module.exports = router;
