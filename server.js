@@ -1,6 +1,7 @@
 const app = require("./app");
 const connectDatabase = require("./config/database");
 require('dotenv').config();
+console.log(process.env.DB_URI);
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {

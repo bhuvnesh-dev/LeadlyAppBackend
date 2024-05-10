@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+require('dotenv').config();
 const connectDatabase = () => {
   mongoose
     .connect("mongodb+srv://bhuvneshupworkdev:RtIiLCrguFnfnNbE@cluster0.nbubx7u.mongodb.net/?retryWrites=true&w=majority", {

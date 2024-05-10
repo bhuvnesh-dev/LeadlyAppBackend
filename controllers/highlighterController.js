@@ -1,5 +1,5 @@
 const HighlighterData = require('../models/highlighterModel');
-const {MongoClient} = require('mongodb');
+const axios = require('axios');
 
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 exports.createHighlighter = catchAsyncErrors(async (req, res, next) => {
@@ -76,19 +76,11 @@ exports.deleteArticleHighlighter = catchAsyncErrors(async (req, res, next) => {
 
 exports.getArticleData = catchAsyncErrors(async (req, res, next) => {
     try {
-        const client = await MongoClient.connect("mongodb+srv://bhuvneshupworkdev:RtIiLCrguFnfnNbE@cluster0.nbubx7u.mongodb.net/?retryWrites=true&w=majority", {});
-        // const collection = mongoose.collection('articleData');
-        const db = client.db('test');
-        const collection = db.collection('articleData');
-        // console.log(collection,"collection")
-    
-        // Find all documents (replace with your query if needed)
-        const data = await collection.findOne({_id:'65fe3ef1943c0ae041bdd852'});
-        // console.log(data,"data");
-        if (data) {
+        const articleData = await axios.get("http://ec2-3-16-231-109.us-east-2.compute.amazonaws.com/v1/admin/shareableContents?subtopicID=65fe3ef1943c0ae041bdd852&commentPage=true");
+        if (articleData.data.status === 200) {
             res.status(200).json({
                 success: true,
-                data: data,
+                data: articleData.data.data,
             });
         }
         else {
