@@ -96,3 +96,30 @@ exports.getArticleData = catchAsyncErrors(async (req, res, next) => {
     }
 
 });
+
+exports.updateArticleHighlighter = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const id = req.query.id;
+        console.log(id,"articleId==>>");
+        const color = req.body.highlighterColor;
+        const getArticleHighlighterData = await HighlighterData.findByIdAndUpdate(id,{
+            highlighterColor: color,
+        });
+        if (getArticleHighlighterData) {
+            res.status(200).json({
+                success: true,
+            });
+        }
+        else {
+            res.status(400).json({
+                success: false,
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+});

@@ -15,6 +15,14 @@ const highlighterDataSchema = new mongoose.Schema({
   },
   exactSelectedText: String,
   articleId: String,
+  highlighterColor: {
+    type: String,
+    default: "yellow"
+  },
+  isRemoved: {
+    type: Boolean,
+    default: false,
+  }
   // Add more fields as needed
 });
 
