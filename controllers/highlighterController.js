@@ -173,6 +173,32 @@ exports.getArticleData = catchAsyncErrors(async (req, res, next) => {
     }
 
 });
+
+
+exports.updateArticleDataAws = catchAsyncErrors(async (req, res, next) => {
+    try {
+        console.log(req.body,"body data")
+        const articleData = await axios.post("http://api.edpodia.co.uk/v1/dev_update/upwork/bhnv",{...req.body});
+        console.log(articleData,"articleData Addded");
+        if (articleData.data.status === 200) {
+            res.status(200).json({
+                success: true,
+                message: "success",
+            });
+        }
+        else {
+            res.status(400).json({
+                success: false,
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message,
+        });
+    }
+
+});
 // exports.getArticleData = catchAsyncErrors(async (req, res, next) => {
 //     try {
 //         const articleData = await ArticleModel.findById("667a8e2219dd938dfc5c43aa");
